@@ -30,7 +30,7 @@ public class Receita {
     private String descricao;
     
     @Column(name = "RCT_DATAINCLUSAO")
-    private Date dataInclusao;
+    private Date dataInclusao = new Date();
     
     @ManyToOne
     @JoinColumn(name = "USR_ID")

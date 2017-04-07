@@ -1,5 +1,6 @@
 package br.gov.sp.fatec.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -28,6 +27,9 @@ public class Usuario {
     
     @Column(name = "USR_SENHA", length = 50, nullable = false)
     private String senha;
+    
+    @Column(name = "USR_DATAINCLUSAO")
+    private Date dataInclusao = new Date();
     
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "USR_ID")

@@ -3,7 +3,6 @@ package br.gov.sp.fatec.model;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,7 +25,7 @@ public class TipoMaterial {
     private String nome;
     
     @Column(name = "TPO_DATAINCLUSAO")
-    private Date dataInclusao;
+    private Date dataInclusao = new Date();
     
     @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="TPO_ID")

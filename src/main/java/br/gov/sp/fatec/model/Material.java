@@ -30,7 +30,7 @@ public class Material {
     private String descricao;
     
     @Column(name = "MTR_DATAINCLUSAO")
-    private Date dataInclusao;
+    private Date dataInclusao = new Date();
     
     @ManyToOne
     @JoinColumn(name = "TPO_ID")
