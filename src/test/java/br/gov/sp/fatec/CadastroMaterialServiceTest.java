@@ -3,9 +3,14 @@ package br.gov.sp.fatec;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.gov.sp.fatec.model.Material;
 import br.gov.sp.fatec.model.TipoMaterial;
@@ -13,7 +18,12 @@ import br.gov.sp.fatec.repository.MaterialRepository;
 import br.gov.sp.fatec.repository.ReceitaRepository;
 import br.gov.sp.fatec.repository.TipoMaterialRepository;
 import br.gov.sp.fatec.service.CadastroMaterialService;
+import br.gov.sp.fatec.service.CadastroMaterialServiceImpl;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@Rollback
+@Transactional
+@ContextConfiguration(locations = {"classpath:/applicationContext.xml"} )
 public class CadastroMaterialServiceTest {
 	private static final String TIPONOME = "elemento X";
 	private static final String NOMEMATERIAL = "material ABC";
@@ -22,13 +32,10 @@ public class CadastroMaterialServiceTest {
 	@Autowired
 	private CadastroMaterialService cadMatSer;
 	@Autowired
-	private ApplicationContext context;
-	@Autowired
 	private TipoMaterialRepository tipoMaterialRepo;
 	@Autowired
 	private MaterialRepository materialRepo;
-	@Autowired
-	private Material material;
+	
 	
 	public void setCadastroMaterialService(CadastroMaterialService cadMatSer){
 		this.cadMatSer = cadMatSer;
@@ -38,41 +45,37 @@ public class CadastroMaterialServiceTest {
 		this.materialRepo = materialRepo;
 	}
 	
+	public void setTipoMaterialRepo(TipoMaterialRepository tipoMaterialRepo){
+		this.tipoMaterialRepo = tipoMaterialRepo;
+	}
+	
 	@Test
-	public void testeCadastroMaterial(){
-		context = new ClassPathXmlApplicationContext("applicationContext.xml");
+	public void testeCadastroMaterialService(){		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
     	
-		cadMatSer = (CadastroMaterialService)context.getBean("cadastroMaterial");
+		cadMatSer = (CadastroMaterialService) context.getBean("cadastroMaterial");
     	
     	//Cria um tipo de material
     	TipoMaterial tipoMaterial = new TipoMaterial();
     	tipoMaterial.setNome(TIPONOME);
+    	System.out.println("tipoMaterial: " +tipoMaterial.getNome());
     	tipoMaterialRepo.save(tipoMaterial);
-    	assertTrue(tipoMaterial.getId()!=null);
 		
 		//Cria um material com tipo nao salvo
-    	
+    	Material material = new Material();
     	material.setNome(NOMEMATERIAL);
     	material.setDescricao(DESCRICAOMATERIAL);
     	material.setTipo(tipoMaterial);
     	materialRepo.save(material);
-    	assertTrue(material.getId()!=null);
-	}
-	
-	@Test
-	public void testeMaterialService(){
-		context = new ClassPathXmlApplicationContext("applicationContext.xml");
-    	
-		cadMatSer = (CadastroMaterialService)context.getBean("cadastroMaterial");
 		
+    	
 		try {
 			cadMatSer.cadastroMaterial(material);
 			System.out.println("Material Cadastrado através do Service");
 		}
 		catch(Exception e) {
 			System.out.println("Cadastro Material: Erro inesperado! Mas o Rollback foi realizado!");
-			
-			// e.printStackTrace();
+			//e.printStackTrace();
 		}
 		assertTrue(material.getId()!=null);
 	}

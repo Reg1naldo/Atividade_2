@@ -13,7 +13,7 @@ import br.gov.sp.fatec.repository.TipoMaterialRepository;
 import br.gov.sp.fatec.repository.UsuarioRepository;
 import br.gov.sp.fatec.service.CadastroMaterialService;
 import br.gov.sp.fatec.service.CadastroTipoMaterialService;
-import br.gov.sp.fatec.service.SegurancaService;
+import br.gov.sp.fatec.service.UsuarioService;
 
 public class App 
 {
@@ -38,7 +38,7 @@ public class App
     	
     	//Cria um tipo de material
     	TipoMaterial tipoMaterial = new TipoMaterial();
-    	tipoMaterial.setNome("plástico");
+    	tipoMaterial.setNome("plï¿½stico");
     	tipoMaterialRepo.save(tipoMaterial);
     	
     	System.out.println("Tipo Material Id: " + tipoMaterial.getId());
@@ -62,19 +62,19 @@ public class App
     		
     	}
     	
-    	//Consultas nos repositórios
+    	//Consultas nos repositï¿½rios
     	
-    	//Usuário Repository: Pesquisa por nome
+    	//Usuï¿½rio Repository: Pesquisa por nome
     	System.out.println(usuarioRepo.findByNome("Pedro").getNome());
-    	//Usuário Repository: Pesquisa usuário cujo o nome contenha
+    	//Usuï¿½rio Repository: Pesquisa usuï¿½rio cujo o nome contenha
     	System.out.println(usuarioRepo.findTop1ByNomeContains("dro").getNome());
-    	//Usuário Repository: Pesquisa por Id maiores que o informado
+    	//Usuï¿½rio Repository: Pesquisa por Id maiores que o informado
     	for(Usuario us: usuarioRepo.findByIdGreaterThan(0l)) {
 			System.out.println("Usuario encontrado: " + us.getNome());
 		}
     	
     	//Tipo de Material Repository: Pesquisa por nome
-    	System.out.println(tipoMaterialRepo.findByNome("plástico").getNome());
+    	System.out.println(tipoMaterialRepo.findByNome("plï¿½stico").getNome());
     	//Tipo de Material Repository: Pesquisa tipo de material cujo o nome contenha
     	System.out.println(tipoMaterialRepo.findTop1ByNomeContains("sti").getNome());
     	//Tipo de Material Repository: Pesquisa por Id maiores que o informado
@@ -99,7 +99,7 @@ public class App
     	for(Receita rt: receitaRepo.findByIdGreaterThan(10L)) {
 			System.out.println("Receita encontrado: " + rt.getNome());
 		}
-    	//Receita Repository: Pesquisa as últimas 10 receitas cadastradas
+    	//Receita Repository: Pesquisa as ï¿½ltimas 10 receitas cadastradas
     	for(Receita rt: receitaRepo.findFirst10ByOrderByDataInclusaoDesc()) {
 			System.out.println("Receita encontrado: " + rt.getNome());
 		}
@@ -119,7 +119,7 @@ public class App
 		
 		try {
 			cadMatSer.cadastroMaterial(materialServiceTeste);
-			System.out.println("Material Cadastrado através do Service");
+			System.out.println("Material Cadastrado atravï¿½s do Service");
 		}
 		catch(Exception e) {
 			System.out.println("Cadastro Material: Erro inesperado! Mas o Rollback foi realizado!");
@@ -128,7 +128,7 @@ public class App
 		}
 
     	cadMatSer.cadastroMaterial(materialServiceTeste);
-		System.out.println("Material Cadastrado através do Service");
+		System.out.println("Material Cadastrado atravï¿½s do Service");
 		
 		/*//Service Cadastro Tipo Material
 		SegurancaService segSer = (SegurancaService)context.getBean("segurancaService");
@@ -143,15 +143,15 @@ public class App
 		
 		//exclui todas as receitas
 		receitaRepo.deleteAll();
-		System.out.println("Receita excluída!");
+		System.out.println("Receita excluï¿½da!");
 		// Exclui material
 		materialRepo.deleteAll();
-		System.out.println("Material excluída!");
+		System.out.println("Material excluï¿½da!");
 		//exclui tipo de material
 		tipoMaterialRepo.deleteAll();
-		System.out.println("TipoMaterial excluída!");
+		System.out.println("TipoMaterial excluï¿½da!");
 		// Exclui usuario
 		usuarioRepo.deleteAll();	
-		System.out.println("Usuário excluída!");
+		System.out.println("Usuï¿½rio excluï¿½da!");
     }
 }
