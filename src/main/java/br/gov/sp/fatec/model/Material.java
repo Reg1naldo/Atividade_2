@@ -15,23 +15,34 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.view.View;
+
 @Entity
 @Table(name = "MTR_MATERIAL")
 public class Material {
 	@Id 
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "MTR_ID")
+	@JsonView(View.All.class)
 	private Long id;
     
     @Column(name = "MTR_NOME", length = 30, nullable = false)
+    @JsonView(View.All.class)
     private String nome;
     
     @Column(name = "MTR_DESCRICAO", length = 50, nullable = false)
+    @JsonView(View.All.class)
     private String descricao;
     
     @Column(name = "MTR_DATAINCLUSAO")
+    @JsonView(View.All.class)
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataInclusao = new Date();
-    
+
+     
     @ManyToOne
     @JoinColumn(name = "TPO_ID")
     private TipoMaterial tipo;
@@ -81,7 +92,13 @@ public class Material {
 	public void setTipo(TipoMaterial tipo) {
 		this.tipo = tipo;
 	}
-    
-    
+
+	public List<Receita> getReceitas() {
+		return receitas;
+	}
+
+	public void setReceitas(List<Receita> receitas) {
+		this.receitas = receitas;
+	}
 
 }

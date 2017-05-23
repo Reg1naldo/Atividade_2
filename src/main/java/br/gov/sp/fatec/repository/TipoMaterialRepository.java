@@ -12,4 +12,6 @@ public interface TipoMaterialRepository extends CrudRepository<TipoMaterial, Lon
 	public TipoMaterial findTop1ByNomeContains(String nome);
 	
 	public List<TipoMaterial> findByIdGreaterThan(Long id);
+	
+	public List<TipoMaterial> findAll();
 }

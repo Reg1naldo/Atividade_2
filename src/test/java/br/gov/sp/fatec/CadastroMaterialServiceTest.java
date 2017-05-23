@@ -17,8 +17,8 @@ import br.gov.sp.fatec.model.TipoMaterial;
 import br.gov.sp.fatec.repository.MaterialRepository;
 import br.gov.sp.fatec.repository.ReceitaRepository;
 import br.gov.sp.fatec.repository.TipoMaterialRepository;
-import br.gov.sp.fatec.service.CadastroMaterialService;
-import br.gov.sp.fatec.service.CadastroMaterialServiceImpl;
+import br.gov.sp.fatec.service.MaterialService;
+import br.gov.sp.fatec.service.MaterialServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Rollback
@@ -30,14 +30,14 @@ public class CadastroMaterialServiceTest {
 	private static final String DESCRICAOMATERIAL = "Material encontrado em x produtos";
 	
 	@Autowired
-	private CadastroMaterialService cadMatSer;
+	private MaterialService cadMatSer;
 	@Autowired
 	private TipoMaterialRepository tipoMaterialRepo;
 	@Autowired
 	private MaterialRepository materialRepo;
 	
 	
-	public void setCadastroMaterialService(CadastroMaterialService cadMatSer){
+	public void setCadastroMaterialService(MaterialService cadMatSer){
 		this.cadMatSer = cadMatSer;
 	}
 	
@@ -53,7 +53,7 @@ public class CadastroMaterialServiceTest {
 	public void testeCadastroMaterialService(){		
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
     	
-		cadMatSer = (CadastroMaterialService) context.getBean("cadastroMaterial");
+		cadMatSer = (MaterialService) context.getBean("cadastroMaterial");
     	
     	//Cria um tipo de material
     	TipoMaterial tipoMaterial = new TipoMaterial();

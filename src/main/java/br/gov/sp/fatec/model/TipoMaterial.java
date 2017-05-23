@@ -13,15 +13,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.view.View;
+
 @Entity
 @Table(name = "TPO_TIPO")
 public class TipoMaterial {
 	@Id 
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "TPO_ID")
+	@JsonView({View.All.class, View.Alternative.class})
 	private Long id;
     
     @Column(name = "TPO_NOME", unique=true, length = 30, nullable = false)
+    @JsonView({View.All.class, View.Alternative.class})
     private String nome;
     
     @Column(name = "TPO_DATAINCLUSAO")

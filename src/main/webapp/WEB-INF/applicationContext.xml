@@ -18,6 +18,10 @@
     <jpa:repositories base-package="br.gov.sp.fatec.repository"/>
     
     <mvc:annotation-driven />
+    
+    <mvc:cors>
+    	<mvc:mapping path="/**" />
+    </mvc:cors>
 
     <!-- Datasource -->
     <bean id="dataSource" 

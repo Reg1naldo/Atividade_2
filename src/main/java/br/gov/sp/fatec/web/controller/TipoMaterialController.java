@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,44 +19,42 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import br.gov.sp.fatec.model.Usuario;
-import br.gov.sp.fatec.service.UsuarioService;
+import br.gov.sp.fatec.model.TipoMaterial;
+import br.gov.sp.fatec.service.TipoMaterialService;
 import br.gov.sp.fatec.view.View;
 
 @RestController
-@RequestMapping(value = "/usuario")
-
-public class UsuarioController {
+@RequestMapping(value = "/tipoMaterial")
+public class TipoMaterialController {
 	
 	@Autowired
-	private UsuarioService usuarioService;
-	
-	
-	public void setUsuarioService(UsuarioService usuarioService) {
-		this.usuarioService = usuarioService;
+	private TipoMaterialService tipoMaterialService;
+
+	public void setTipoMaterialService(TipoMaterialService tipoMaterialService) {
+		this.tipoMaterialService = tipoMaterialService;
 	}
 	
 	@RequestMapping(value = "/get/{nome}")
 	@JsonView(View.All.class)
-	public ResponseEntity<Usuario> pesquisar(@PathVariable("nome") String nome) {
-		return new ResponseEntity<Usuario> (usuarioService.buscar(nome), HttpStatus.OK);
+	public ResponseEntity<TipoMaterial> pesquisar(@PathVariable("nome") String nome) {
+		return new ResponseEntity<TipoMaterial> (tipoMaterialService.buscar(nome), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/getById")
 	@JsonView(View.All.class)
-	public ResponseEntity<Usuario> get(@RequestParam(value="id", defaultValue="1") Long id) {
-		Usuario usuario = usuarioService.buscar(id);
-		if(usuario == null) {
-			return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
+	public ResponseEntity<TipoMaterial> get(@RequestParam(value="id", defaultValue="1") Long id) {
+		TipoMaterial tipoMaterial = tipoMaterialService.buscar(id);
+		if(tipoMaterial == null) {
+			return new ResponseEntity<TipoMaterial>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+		return new ResponseEntity<TipoMaterial>(tipoMaterial, HttpStatus.OK);
 	}
 	
 	//@CrossOrigin(origins = "http://localhost:3002")
 	@RequestMapping(value = "/getAll")
 	@JsonView(View.Alternative.class)
-	public ResponseEntity<Collection<Usuario>> getAll() {
-		return new ResponseEntity<Collection<Usuario>>(usuarioService.todos(), HttpStatus.OK);
+	public ResponseEntity<Collection<TipoMaterial>> getAll() {
+		return new ResponseEntity<Collection<TipoMaterial>>(tipoMaterialService.todos(), HttpStatus.OK);
 	}
 	
 	// Voce pode informar o metodo e o tipo de retorno produzido
@@ -66,12 +63,9 @@ public class UsuarioController {
 	// E possivel indicar o status por anotacao, mas sera fixo, sem possibilidade de tratar erros
 	@ResponseStatus(HttpStatus.CREATED)
 	
-	public Usuario save(@RequestBody Usuario usuario, HttpServletRequest request, HttpServletResponse response) {
-		usuario = usuarioService.CadastraUsuario(usuario);
-		response.addHeader("Location", request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/usuario/getById?id=" + usuario.getId());
-		return usuario;
+	public TipoMaterial save(@RequestBody TipoMaterial tipoMaterial, HttpServletRequest request, HttpServletResponse response) {
+		tipoMaterial = tipoMaterialService.cadastroTipoMaterial(tipoMaterial);
+		response.addHeader("Location", request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/usuario/getById?id=" + tipoMaterial.getId());
+		return tipoMaterial;
 	}
-	
-	//@RequestMapping(value = "/login", method = RequestMethod.G)
-	
 }

@@ -9,8 +9,12 @@ import br.gov.sp.fatec.model.Material;
 public interface MaterialRepository extends CrudRepository<Material, Long> {
 	public Material findByNome(String nome);	
 	
-	public Material findTop1ByNomeContains(String nome);
+	public Material findTop1ByNomeContains(String nome);	
+	
+	public List<Material> findByNomeContains(String nome);
 	
 	public List<Material> findByIdGreaterThan(Long id);
+	
+	public Material findById(Long id);
 
 }

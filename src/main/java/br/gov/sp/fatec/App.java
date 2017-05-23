@@ -11,8 +11,8 @@ import br.gov.sp.fatec.repository.MaterialRepository;
 import br.gov.sp.fatec.repository.ReceitaRepository;
 import br.gov.sp.fatec.repository.TipoMaterialRepository;
 import br.gov.sp.fatec.repository.UsuarioRepository;
-import br.gov.sp.fatec.service.CadastroMaterialService;
-import br.gov.sp.fatec.service.CadastroTipoMaterialService;
+import br.gov.sp.fatec.service.MaterialService;
+import br.gov.sp.fatec.service.TipoMaterialService;
 import br.gov.sp.fatec.service.UsuarioService;
 
 public class App 
@@ -105,7 +105,7 @@ public class App
 		}
     	
     	//Service Cadastro Material
-    	CadastroMaterialService cadMatSer = (CadastroMaterialService)context.getBean("cadastroMaterial");
+    	MaterialService cadMatSer = (MaterialService)context.getBean("cadastroMaterial");
     	
     	//Cria um tipo de material e nao o salva
     	TipoMaterial tipoMaterialNaoSalvoAinda = new TipoMaterial();
@@ -128,7 +128,7 @@ public class App
 		}
 
     	cadMatSer.cadastroMaterial(materialServiceTeste);
-		System.out.println("Material Cadastrado atrav�s do Service");
+		System.out.println("Material Cadastrado através do Service");
 		
 		/*//Service Cadastro Tipo Material
 		SegurancaService segSer = (SegurancaService)context.getBean("segurancaService");

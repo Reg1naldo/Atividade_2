@@ -11,6 +11,8 @@ public interface ReceitaRepository extends CrudRepository<Receita, Long>{
 	
 	public Receita findTop1ByNomeContains(String nome);
 	
+	public List<Receita> findByNomeContains(String nome);
+	
 	public List<Receita> findByIdGreaterThan(Long id);
 	
 	public List<Receita> findFirst10ByOrderByDataInclusaoDesc();

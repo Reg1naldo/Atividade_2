@@ -13,6 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.view.View;
+
 @Entity
 @Table(name = "USR_USUARIO")
 public class Usuario {
@@ -20,12 +24,15 @@ public class Usuario {
 	@Id 
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "USR_ID")
+	@JsonView({View.All.class, View.Alternative.class})
 	private Long id;
     
     @Column(name = "USR_NOME", unique=true, length = 20, nullable = false)
+    @JsonView({View.All.class, View.Alternative.class})
     private String nome;
     
     @Column(name = "USR_SENHA", length = 50, nullable = false)
+    @JsonView({View.All.class, View.Alternative.class})
     private String senha;
     
     @Column(name = "USR_DATAINCLUSAO")
