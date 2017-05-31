@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,12 +37,14 @@ public class TipoMaterialController {
 	
 	@RequestMapping(value = "/get/{nome}")
 	@JsonView(View.All.class)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<TipoMaterial> pesquisar(@PathVariable("nome") String nome) {
 		return new ResponseEntity<TipoMaterial> (tipoMaterialService.buscar(nome), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/getById")
 	@JsonView(View.All.class)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<TipoMaterial> get(@RequestParam(value="id", defaultValue="1") Long id) {
 		TipoMaterial tipoMaterial = tipoMaterialService.buscar(id);
 		if(tipoMaterial == null) {
@@ -53,6 +56,7 @@ public class TipoMaterialController {
 	//@CrossOrigin(origins = "http://localhost:3002")
 	@RequestMapping(value = "/getAll")
 	@JsonView(View.Alternative.class)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<Collection<TipoMaterial>> getAll() {
 		return new ResponseEntity<Collection<TipoMaterial>>(tipoMaterialService.todos(), HttpStatus.OK);
 	}

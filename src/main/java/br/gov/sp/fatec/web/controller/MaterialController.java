@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,7 @@ public class MaterialController {
 
 	@RequestMapping(value = "/getById/{id}")
 	@JsonView(View.All.class)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<Material> get(@PathVariable("id") Long id) {
 		Material material = cadastroMaterialService.buscar(id);
 		if (material == null) {
@@ -46,6 +48,7 @@ public class MaterialController {
 	
 	@RequestMapping(value = "/getAllFilter")
 	@JsonView(View.All.class)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<Collection<Material>> getAll(@RequestParam(value="nome", defaultValue="" ) String nome, @RequestParam(value="descricao", defaultValue="" ) String descricao ) {
 		return new ResponseEntity<Collection<Material>>(cadastroMaterialService.buscarPorNome(nome), HttpStatus.OK);
 		
@@ -54,6 +57,7 @@ public class MaterialController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@JsonView(View.All.class)
 	@ResponseStatus(HttpStatus.CREATED)
+	@PreAuthorize("isAuthenticated()")
 	public Material save(@RequestBody Material material, HttpServletRequest request, HttpServletResponse response) {
 		material = cadastroMaterialService.cadastroMaterial(material);
 		response.addHeader("Location", request.getServerName() + ":" + request.getServerPort()

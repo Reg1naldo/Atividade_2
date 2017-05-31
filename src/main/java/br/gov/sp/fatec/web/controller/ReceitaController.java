@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ public class ReceitaController {
 	
 	@RequestMapping(value = "/getById/{id}")
 	@JsonView(View.All.class)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<Receita> get(@PathVariable("id") Long id) {
 		Receita receita = receitaService.buscar(id);
 		if (receita == null) {
@@ -45,6 +47,7 @@ public class ReceitaController {
 	
 	@RequestMapping(value = "/getAllFilter")
 	@JsonView(View.All.class)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<Collection<Receita>> getAll(@RequestParam(value="nome", defaultValue="" ) String nome, @RequestParam(value="descricao", defaultValue="" ) String descricao ) {
 		return new ResponseEntity<Collection<Receita>>(receitaService.buscarPorNomeContem(nome), HttpStatus.OK);
 		
@@ -53,6 +56,7 @@ public class ReceitaController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@JsonView(View.All.class)
 	@ResponseStatus(HttpStatus.CREATED)
+	@PreAuthorize("isAuthenticated()")
 	public Receita save(@RequestBody Usuario usuario, @RequestBody String nome, @RequestBody String descricao, @RequestBody List<Material> materiais, HttpServletRequest request, HttpServletResponse response) {
 		Receita receita = receitaService.cadastraReceita(usuario, nome, descricao, materiais);
 		response.addHeader("Location", request.getServerName() + ":" + request.getServerPort()

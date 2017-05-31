@@ -126,7 +126,7 @@
 
   </dependencies>
   <build>
-    <finalName>springRestSecurity</finalName>
+    <finalName>atividade2</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

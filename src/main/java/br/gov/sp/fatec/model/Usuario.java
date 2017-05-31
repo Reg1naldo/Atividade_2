@@ -51,7 +51,7 @@ public class Usuario implements UserDetails {
     	inverseJoinColumns = { @JoinColumn(name = "AUT_ID") })
     private List<Autorizacao> autorizacoes;
     
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "USR_ID")
     private List<Receita> receitas;
 
