@@ -22,7 +22,7 @@
     <mvc:cors>
     	<mvc:mapping path="/**" />
     </mvc:cors>
-
+    
     <!-- Datasource -->
     <bean id="dataSource" 
          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
