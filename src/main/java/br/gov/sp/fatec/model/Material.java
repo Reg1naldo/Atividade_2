@@ -44,6 +44,7 @@ public class Material {
 
      
     @ManyToOne
+    @JsonView(View.All.class)
     @JoinColumn(name = "TPO_ID")
     private TipoMaterial tipo;
     

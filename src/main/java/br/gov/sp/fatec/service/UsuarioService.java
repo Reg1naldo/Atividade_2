@@ -9,5 +9,4 @@ public interface UsuarioService {
 	public Usuario buscar(Long id);
 	public List<Usuario> todos();
 	public Usuario CadastraUsuario(Usuario usuario);
-	public boolean Login(String nome, String senha);
 }

@@ -36,12 +36,12 @@ public class TipoMaterialServiceImpl implements TipoMaterialService{
 	@Transactional
 	public TipoMaterial cadastroTipoMaterial(TipoMaterial tipo){
 		TipoMaterial tipo1 = new TipoMaterial();
-		if (tipoMaterialRepo.findByNome(tipo.getNome())==null){
+		if (tipoMaterialRepo.findByNome(tipo.getNome())!=null){
 			tipo1 = tipoMaterialRepo.findByNome(tipo.getNome());
 		}
-		tipo1.setNome(tipo.getNome());	
+		tipo1.setNome(tipo.getNome());
 		
-		return tipoMaterialRepo.save(tipo);
+		return tipoMaterialRepo.save(tipo1);
 	}
 	
 	public void setTipoMaterialRepository(TipoMaterialRepository tipoMaterialRepo){

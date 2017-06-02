@@ -35,10 +35,6 @@ public class UsuarioServiceImpl implements UsuarioService{
 		return usuarioRepo.save(usuario);		
 	}
 	
-	public boolean Login(String nome, String senha){
-		return usuarioRepo.findByNome(nome).getSenha()==senha;
-	}
-
 	/**
 	 * @param usuarioRepo the usuarioRepo to set
 	 */

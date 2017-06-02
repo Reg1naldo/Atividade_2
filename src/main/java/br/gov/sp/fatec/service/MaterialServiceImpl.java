@@ -7,31 +7,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.gov.sp.fatec.model.Material;
-import br.gov.sp.fatec.model.TipoMaterial;
 import br.gov.sp.fatec.repository.MaterialRepository;
-import br.gov.sp.fatec.repository.TipoMaterialRepository;
 
 @Service("cadastroMaterial")
 public class MaterialServiceImpl implements MaterialService {
 	@Autowired
 	private MaterialRepository materialRepo;
 
-	@Autowired
-	private TipoMaterialRepository tipoMaterialRepo;
-
 	@Transactional
 	public Material cadastroMaterial(Material material) {
-		Material nmaterial = materialRepo.findByNome(material.getNome());
-		if (nmaterial != null) {
-			nmaterial.setNome(material.getNome());
-			nmaterial.setDescricao(material.getDescricao());
-			nmaterial.setTipo(material.getTipo());
-			return materialRepo.save(nmaterial);
+		Material nmaterial = new Material();
+		if (materialRepo.findByNome(material.getNome()) != null) {
+			nmaterial = materialRepo.findByNome(material.getNome());
 		} else {
-			TipoMaterial tipo = tipoMaterialRepo.findByNome(material.getTipo().getNome());
-			material.setTipo(tipo);
-			return materialRepo.save(material);
+			nmaterial = material;
 		}
+		
+		return materialRepo.save(nmaterial);
 	}
 
 	public Material buscar(Long id) {

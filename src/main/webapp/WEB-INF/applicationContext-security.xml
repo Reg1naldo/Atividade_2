@@ -11,7 +11,11 @@
            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 		
 	<mvc:cors>
-    	<mvc:mapping path="/**" />
+    	<mvc:mapping path="/**" 
+    	allowed-origins="*"
+        allowed-headers="Content-Type, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+        exposed-headers="Token"
+        allowed-methods="GET, PUT, POST, DELETE"/>
     </mvc:cors>
     
   <!-- Anotacoes -->
