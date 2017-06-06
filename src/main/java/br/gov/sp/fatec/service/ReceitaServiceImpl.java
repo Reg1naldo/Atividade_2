@@ -21,15 +21,18 @@ public class ReceitaServiceImpl implements ReceitaService {
 	private ReceitaRepository receitaRepo;
 	
 	@Transactional
-	public Receita cadastraReceita(Usuario usuario, String nomeReceita, String descricaoReceita, List<Material> materiais){
-		Receita receita = new Receita();
-		if (usuarioRepo.findByNome(usuario.getNome()) != null){
-			receita.setDescricao(descricaoReceita);
-			receita.setNome(nomeReceita);
-			receita.setUsuario(usuario);
-			receita.setMateriais(materiais);
+	public Receita cadastraReceita(Receita receita){
+		Receita nreceita = new Receita();
+		if (usuarioRepo.findByNome(receita.getUsuario().getNome()) != null){
+			if(receitaRepo.findByNome(receita.getNome()) != null){
+				nreceita = receitaRepo.findByNome(receita.getNome());
+			}
+			nreceita.setDescricao(receita.getDescricao());
+			nreceita.setNome(receita.getNome());
+			nreceita.setUsuario(receita.getUsuario());
+			nreceita.setMateriais(receita.getMateriais());
 			
-			return receitaRepo.save(receita);
+			return receitaRepo.save(nreceita);
 		}
 		else{
 			System.out.println("Usuário inexistente, impossível cadastrar receita.");

@@ -57,8 +57,8 @@ public class ReceitaController {
 	@JsonView(View.All.class)
 	@ResponseStatus(HttpStatus.CREATED)
 	@PreAuthorize("isAuthenticated()")
-	public Receita save(@RequestBody Usuario usuario, @RequestBody String nome, @RequestBody String descricao, @RequestBody List<Material> materiais, HttpServletRequest request, HttpServletResponse response) {
-		Receita receita = receitaService.cadastraReceita(usuario, nome, descricao, materiais);
+	public Receita save(@RequestBody Receita receita, HttpServletRequest request, HttpServletResponse response) {
+		receita = receitaService.cadastraReceita(receita);
 		response.addHeader("Location", request.getServerName() + ":" + request.getServerPort()
 				+ request.getContextPath() + "/receita/getById/" + receita.getId());
 		return receita;
