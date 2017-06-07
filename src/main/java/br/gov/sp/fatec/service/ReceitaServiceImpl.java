@@ -24,12 +24,14 @@ public class ReceitaServiceImpl implements ReceitaService {
 	public Receita cadastraReceita(Receita receita){
 		Receita nreceita = new Receita();
 		if (usuarioRepo.findByNome(receita.getUsuario().getNome()) != null){
+			Usuario usuario = new Usuario();
+			usuario = usuarioRepo.findByNome(receita.getUsuario().getNome());
 			if(receitaRepo.findByNome(receita.getNome()) != null){
 				nreceita = receitaRepo.findByNome(receita.getNome());
 			}
 			nreceita.setDescricao(receita.getDescricao());
 			nreceita.setNome(receita.getNome());
-			nreceita.setUsuario(receita.getUsuario());
+			nreceita.setUsuario(usuario);
 			nreceita.setMateriais(receita.getMateriais());
 			
 			return receitaRepo.save(nreceita);

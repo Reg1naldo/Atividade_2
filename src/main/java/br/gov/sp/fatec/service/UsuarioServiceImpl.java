@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.gov.sp.fatec.model.Usuario;
 import br.gov.sp.fatec.repository.UsuarioRepository;
+import br.gov.sp.fatec.security.Criptografia;
 
 @Service("usuarioService")
 public class UsuarioServiceImpl implements UsuarioService{
@@ -32,6 +33,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
 	public Usuario CadastraUsuario(Usuario usuario) {
+		String senha = usuario.getSenha();
+		usuario.setSenha(Criptografia.criptografar(senha));
 		return usuarioRepo.save(usuario);		
 	}
 	
