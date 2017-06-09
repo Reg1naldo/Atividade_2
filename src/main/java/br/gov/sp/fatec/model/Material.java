@@ -29,11 +29,11 @@ public class Material {
 	@JsonView(View.All.class)
 	private Long id;
     
-    @Column(name = "MTR_NOME", length = 30, nullable = false)
+    @Column(name = "MTR_NOME", length = 50, nullable = false)
     @JsonView(View.All.class)
     private String nome;
     
-    @Column(name = "MTR_DESCRICAO", length = 50, nullable = false)
+    @Column(name = "MTR_DESCRICAO", length = 255, nullable = false)
     @JsonView(View.All.class)
     private String descricao;
     

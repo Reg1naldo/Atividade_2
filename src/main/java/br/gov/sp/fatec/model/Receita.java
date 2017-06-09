@@ -15,18 +15,25 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.view.View;
+
 @Entity
 @Table(name = "RCT_RECEITA")
 public class Receita {
 	@Id 
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "RCT_ID")
+	@JsonView(View.All.class)
 	private Long id;
     
     @Column(name = "RCT_NOME", length = 50, nullable = false)
+    @JsonView(View.All.class)
     private String nome;
     
-    @Column(name = "RCT_DESCRICAO", length = 200, nullable = false)
+    @Column(name = "RCT_DESCRICAO", length = 750, nullable = false)
+    @JsonView(View.All.class)
     private String descricao;
     
     @Column(name = "RCT_DATAINCLUSAO")
@@ -34,12 +41,14 @@ public class Receita {
     
     @ManyToOne
     @JoinColumn(name = "USR_ID")
+    @JsonView(View.All.class)
     private Usuario usuario;
     
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "RCM_RECEITAMATERIAL", 
     	joinColumns = { @JoinColumn(name = "RCT_ID") }, 
     	inverseJoinColumns = { @JoinColumn(name = "MTR_ID") })
+    @JsonView(View.All.class)
     private List<Material> materiais;
 
 	public Long getId() {

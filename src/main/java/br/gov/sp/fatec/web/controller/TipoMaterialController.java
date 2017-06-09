@@ -72,4 +72,15 @@ public class TipoMaterialController {
 		response.addHeader("Location", request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/usuario/getById?id=" + tipoMaterial.getId());
 		return tipoMaterial;
 	}
+	/*
+	@JsonView(View.Alternative.class)
+	@PreAuthorize("isAuthenticated()")
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable("id") Long itemId, HttpServletResponse response) {
+		if (tipoMaterialService.deleteTipoMaterial(itemId)){
+			return ResponseEntity.noContent().build();
+		}else{
+			return ResponseEntity.notFound().build();
+		}
+	}*/
 }

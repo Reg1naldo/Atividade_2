@@ -43,7 +43,17 @@ public class TipoMaterialServiceImpl implements TipoMaterialService{
 		
 		return tipoMaterialRepo.save(tipo1);
 	}
-	
+	/*
+	public Boolean deleteTipoMaterial(Long id){
+		if (tipoMaterialRepo.findById(id)!=null){
+			tipoMaterialRepo.deleteById(id);
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	*/
 	public void setTipoMaterialRepository(TipoMaterialRepository tipoMaterialRepo){
 		this.tipoMaterialRepo = tipoMaterialRepo;
 	}

@@ -9,4 +9,5 @@ public interface TipoMaterialService {
 	public TipoMaterial buscar(Long id);
 	public List<TipoMaterial> todos();
 	public TipoMaterial cadastroTipoMaterial(TipoMaterial tipo);
+	//public Boolean deleteTipoMaterial(Long id);
 }
